@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wanderlust — Travel & Adventure Platform
+
+A modern, high-performance travel and adventure landing platform built with Next.js 16 (App Router, Turbopack, React Compiler), React 19, Tailwind CSS v4, and shadcn/ui (Base UI `base-nova` style).
+
+## Tech Stack & Architecture
+
+- **Framework**: Next.js 16.4.3 (App Router with Cache Components, Partial Prerendering, and Turbopack)
+- **Runtime & UI**: React 19.3.0 with React Compiler enabled
+- **UI Components**: shadcn/ui configured with the `base-nova` style powered by `@base-ui/react` primitives
+- **Styling**: Tailwind CSS v4 (CSS-first `@theme inline` configuration in `src/app/globals.css`)
+- **Typography**: Google Fonts (`Josefin_Sans`, `Playfair_Display`, and `Montserrat`)
+- **Carousel**: Embla Carousel React (`embla-carousel-react`)
+- **Icons**: Lucide React (`lucide-react`)
+
+## Project Structure
+
+```
+wanderlust/
+├── public/
+│   └── images/              # Assets (hero banner, CTA, icons, portraits)
+├── src/
+│   ├── app/
+│   │   ├── favicon.ico
+│   │   ├── globals.css      # Tailwind v4 theme, brand colors, and shadcn tokens
+│   │   ├── layout.tsx       # Root layout with fonts, SEO metadata & shell
+│   │   └── page.tsx         # Home page assembling sections
+│   ├── components/
+│   │   ├── banner.tsx       # Hero section with search bar and CTAs
+│   │   ├── cta-section.tsx  # Bottom Call-To-Action banner
+│   │   ├── footer.tsx       # Newsletter form, navigation, and social links
+│   │   ├── navbar.tsx       # Responsive header with desktop and sheet mobile menu
+│   │   ├── testimonials.tsx # Customer reviews carousel with accessible controls
+│   │   ├── why-choose.tsx   # Feature value cards composed with shadcn Card
+│   │   └── ui/              # shadcn/ui primitives (@base-ui/react)
+│   │       ├── badge.tsx
+│   │       ├── button.tsx   # Button primitive with brand, glass, and hero variants
+│   │       ├── card.tsx
+│   │       ├── carousel.tsx
+│   │       ├── input.tsx
+│   │       ├── separator.tsx
+│   │       └── sheet.tsx
+│   └── lib/
+│       ├── fonts.ts         # Typography declarations
+│       └── utils.ts         # Utility functions (cn class combiner)
+├── components.json          # shadcn configuration (base-nova style)
+├── next.config.ts           # Next.js configuration (Turbopack, cache components)
+└── tsconfig.json            # Strict TypeScript configuration
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+ (recommended Node.js 22 or 24)
+- npm (package-lock.json)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development Server
+
+Run the development server with Turbopack:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Quality & Build Verification
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Run ESLint check
+npm run lint
 
-## Learn More
+# Run TypeScript type check
+npx tsc --noEmit --incremental false
 
-To learn more about Next.js, take a look at the following resources:
+# Build for production
+npm run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start production server
+npm run start
+```
