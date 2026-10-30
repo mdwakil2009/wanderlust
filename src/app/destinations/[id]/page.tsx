@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import type { IDestination } from "@/lib/types/destinations";
 import EditDestinationDialog from "@/components/destination/EditDestinationDialog";
 import DeleteDestinationDialog from "@/components/destination/DeleteDestinationDialog";
+import BookingCard from "@/components/Booking/BookingCard";
 
 const highlights = [
   "Professional local guide",
@@ -24,18 +25,6 @@ const highlights = [
   "All entrance fees covered",
 ];
 
-const perks = [
-  "Free cancellation up to 7 days",
-  "Travel insurance included",
-  "24/7 customer support",
-];
-
-function formatDate(value: string) {
-  // Dates are stored as "YYYY-MM-DD" (native date input), but older documents
-  // used "YYYY.MM.DD" — handle both separators.
-  const [year, month, day] = value.split(/[.\-]/);
-  return `${month}/${day}/${year}`;
-}
 
 // Generate a consistent display rating from the destination ID.
 function rating(id: string) {
@@ -80,7 +69,7 @@ const DestinationDetailsPage = async ({
     notFound();
   }
 
-  const price = Number(destination.price).toLocaleString("en-US");
+
 
   return (
     <main className="min-h-screen bg-white px-5 py-6 text-neutral-900 sm:px-8 lg:px-10">
@@ -181,45 +170,7 @@ const DestinationDetailsPage = async ({
           </section>
 
           {/* Booking Sidebar */}
-          <aside className="h-fit rounded-lg border border-neutral-200 bg-white p-6 shadow-sm lg:sticky lg:top-6">
-            <p className="text-sm text-neutral-500">Starting from</p>
-
-            <p className="mt-1 text-3xl font-semibold text-[#00A8E8]">
-              ${price}
-            </p>
-
-            <p className="mt-1 text-xs text-neutral-500">per person</p>
-
-            {/* Departure Date */}
-            <Input
-              readOnly
-              aria-label="Departure date"
-              value={formatDate(destination.departureDate)}
-              className="mt-5 h-11 bg-neutral-50 text-sm"
-            />
-
-            {/* Booking Button */}
-            <Button className="mt-4 w-full bg-[#00A8E8] text-white hover:bg-[#0095d1]">
-              Book Now
-              <ArrowRight aria-hidden="true" />
-            </Button>
-
-            {/* Booking Perks */}
-            <ul className="mt-5 space-y-3 border-t border-neutral-200 pt-5">
-              {perks.map((perk) => (
-                <li
-                  key={perk}
-                  className="flex items-start gap-2 text-xs text-neutral-600"
-                >
-                  <Check
-                    className="mt-px size-4 shrink-0 text-emerald-600"
-                    aria-hidden="true"
-                  />
-                  {perk}
-                </li>
-              ))}
-            </ul>
-          </aside>
+        <BookingCard destination={destination}></BookingCard>
         </div>
       </div>
     </main>
