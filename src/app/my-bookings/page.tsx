@@ -22,7 +22,7 @@ const MyBookingPage = async (): Promise<React.JSX.Element> => {
   const user = session?.user;
 
   const res = await fetch(
-    `http://localhost:8000/my-bookings/${user?.email}`
+    `${process.env.NEXT_API}/my-bookings/${user?.email}`
   );
 
   const bookings: Booking[] = await res.json();

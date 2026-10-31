@@ -16,6 +16,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
+import getTokenFromClient from "@/lib/getTokenFromClient";
 const categories = ["Beach", "Mountain", "City", "Adventure", "Cultural"];
 
 const initialForm = {
@@ -30,33 +32,37 @@ const initialForm = {
 };
 
 export default function AddDestinationPage() {
-     const router = useRouter();
+  const router = useRouter();
   const [form, setForm] = useState(initialForm);
 
   const update = (field: keyof typeof form, value: string) =>
     setForm((current) => ({ ...current, [field]: value }));
 
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  const res = await fetch("http://localhost:8000/add-destination", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(form)
-  });
 
-  const data = await res.json();
-  console.log(data);
-  
-  if (res.ok) {
-    router.push("/destinations");
-    router.refresh();
-    toast.success("Destination added successfully!",)
-  
-  }
-};
+    const token = await getTokenFromClient()
+   
+
+    const res = await fetch(`${process.env.NEXT_API}/add-destination`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(form),
+    });
+
+    const result = await res.json();
+    console.log(result);
+
+    if (res.ok) {
+      router.push("/destinations");
+      router.refresh();
+      toast.success("Destination added successfully!");
+    }
+  };
 
   return (
     <main className="min-h-screen bg-background px-6 py-12">
@@ -179,7 +185,7 @@ export default function AddDestinationPage() {
                 required
               />
             </div>
-          </div> 
+          </div>
 
           {/* Actions */}
           <div className="mt-8 flex justify-end gap-3">

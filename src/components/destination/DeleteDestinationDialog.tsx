@@ -17,14 +17,20 @@ import { Trash2, AlertTriangle } from "lucide-react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import getTokenFromClient from "@/lib/getTokenFromClient";
 
 const DeleteDestinationDialog = ({ id }: { id: string }) => {
   const router = useRouter();
 
+  
   const handelDelete = async () => {
+    const token = await getTokenFromClient()
     try {
-      const res = await fetch(`http://localhost:8000/destination/${id}`, {
+      const res = await fetch(`${process.env.NEXT_API}/destination/${id}`, {
         method: "DELETE",
+        headers:{
+          authorization:`Bearer ${token}`
+        }
       });
 
       const data = await res.json();

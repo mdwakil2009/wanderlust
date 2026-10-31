@@ -24,6 +24,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { IDestination } from "@/lib/types/destinations";
+import getTokenFromClient from "@/lib/getTokenFromClient";
 
 const categories = ["Beach", "Mountain", "City", "Adventure", "Cultural"];
 
@@ -46,16 +47,19 @@ const EditDestinationDailog = ({
   ) => {
     event.preventDefault();
     setLoading(true);
+    
+    const token = await  getTokenFromClient()
 
     try {
       const { _id, ...updatedData } = form;
 
       const res = await fetch(
-        `http://localhost:8000/destination/${destination._id}`,
+        `${process.env.NEXT_API}/destination/${destination._id}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`
           },
           body: JSON.stringify(updatedData),
         },

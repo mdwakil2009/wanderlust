@@ -18,7 +18,7 @@ type Destination = {
 const AllDestinationsPage = async () => {
   let destinations: Destination[] = [];
 
-  const res = await fetch("http://localhost:8000/destinations");
+  const res = await fetch(`${process.env.NEXT_API}/destinations`);
   const data = await res.json();
   console.log(data);
 
@@ -139,7 +139,6 @@ const AllDestinationsPage = async () => {
     </p>
   </div>
 )}
-```
       </div>
     </main>
   );

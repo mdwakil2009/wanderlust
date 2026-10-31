@@ -52,7 +52,7 @@ const MyBookingCard = ({ booking }: MyBookingCardProps) => {
       <div className="relative h-52 w-full shrink-0 overflow-hidden rounded-lg sm:h-[155px] sm:w-[250px]">
         <Image
           src={booking.imageUrl}
-          alt={booking.destinationName}
+          alt={""}
           fill
           unoptimized
           className="object-cover transition-transform duration-500 group-hover:scale-105"

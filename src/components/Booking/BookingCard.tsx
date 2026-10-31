@@ -7,6 +7,9 @@ import { Input } from "../ui/input";
 import { IDestination } from "@/lib/types/destinations";
 import { authClient } from "@/lib/auth-client";
 import type { FormEvent } from "react";
+import getTokenFromClient from "@/lib/getTokenFromClient";
+
+
 
 const perks = [
   "Free cancellation up to 7 days",
@@ -31,6 +34,7 @@ const BookingCard = ({ destination }: BookingCardProps) => {
 
     const formData = new FormData(e.currentTarget);
     const departureDate = formData.get("departureDate") as string;
+    const token = await getTokenFromClient()
 
     const data = {
       username: user?.name,
@@ -45,6 +49,7 @@ const BookingCard = ({ destination }: BookingCardProps) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+         authorization: `Bearer ${token}`
       },
       body: JSON.stringify(data),
     });
